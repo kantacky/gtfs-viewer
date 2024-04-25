@@ -1,0 +1,56 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "300" : {
+
+    },
+    "Buffer" : {
+
+    },
+    "Date" : {
+
+    },
+    "Datetime" : {
+
+    },
+    "Failed to fetch vehicle positions." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "データの取得に失敗しました。"
+          }
+        }
+      }
+    },
+    "From: %@" : {
+
+    },
+    "GTFS Realtime" : {
+
+    },
+    "Seconds" : {
+
+    },
+    "Something went wrong." : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "問題が発生しました。"
+          }
+        }
+      }
+    },
+    "Time" : {
+
+    },
+    "To: %@" : {
+
+    },
+    "Track Now" : {
+
+    }
+  },
+  "version" : "1.0"
+}

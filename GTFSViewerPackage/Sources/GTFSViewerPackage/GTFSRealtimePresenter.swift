@@ -12,12 +12,16 @@ import GTFSViewerEntity
 import GTFSViewerUtility
 import Observation
 
+private let agencyID: UUID = UUID(uuidString: "24af33ea-704d-4baf-a906-70042ae61bc5")!
+
 @Observable
 class GTFSRealtimePresenter {
     var vehiclePositions: [VehiclePosition] = []
     var isTrackingCurrentTime: Bool = true
     var timestamp: Date = .now
     var bufferSeconds: Int = 300
+    var selectedVehicle: VehiclePosition?
+    var mapViewMode: MapViewMode = .agency(agencyID: agencyID)
     var isLoading: Bool = false
     var alertString: String?
     var isAlertShowing: Bool {
@@ -44,11 +48,22 @@ class GTFSRealtimePresenter {
         isLoading = true
         defer { isLoading = false }
         do {
-            vehiclePositions = try await apiClient.listVehiclesPositions(
-                agencyID: UUID(uuidString: "24af33ea-704d-4baf-a906-70042ae61bc5")!,
-                timestamp: timestamp,
-                bufferSeconds: bufferSeconds
-            )
+            switch mapViewMode {
+            case let .agency(agencyID):
+                vehiclePositions = try await apiClient.listVehiclesPositions(
+                    agencyID: agencyID,
+                    timestamp: timestamp,
+                    bufferSeconds: bufferSeconds
+                )
+
+            case let .vehicle(agencyID, vehicleID):
+                vehiclePositions = try await apiClient.listVehiclePositions(
+                    agencyID: agencyID,
+                    vehicleID: vehicleID,
+                    timestampFrom: timestamp - TimeInterval(bufferSeconds),
+                    timestampTo: timestamp
+                )
+            }
         } catch {
             alertString = String(localized: "Failed to fetch vehicle positions.", bundle: .module) + "\n" + error.localizedDescription
         }
@@ -62,5 +77,16 @@ class GTFSRealtimePresenter {
             }
             try? await Task.sleep(nanoseconds: 10_000_000_000)
         }
+    }
+
+    func watchVehiclePosition(_ vehiclePosition: VehiclePosition) async {
+        selectedVehicle = nil
+        mapViewMode = .vehicle(agencyID: agencyID, vehicleID: vehiclePosition.vehicleID)
+        await fetchVehiclePositions()
+    }
+
+    func backToAgencyMode() async {
+        mapViewMode = .agency(agencyID: agencyID)
+        await fetchVehiclePositions()
     }
 }

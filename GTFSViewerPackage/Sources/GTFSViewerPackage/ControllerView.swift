@@ -17,6 +17,25 @@ struct ControllerView: View {
     var body: some View {
         Form {
             Section {
+                switch presenter.mapViewMode {
+                case let .agency(agencyID):
+                    LabeledContent("Agency", value: agencyID.uuidString)
+                        .lineLimit(1)
+
+                case let .vehicle(agencyID, vehicleID):
+                    LabeledContent("Agency", value: agencyID.uuidString)
+                        .lineLimit(1)
+                    LabeledContent("Vehicle", value: vehicleID)
+                        .lineLimit(1)
+                    Button("Back to Agency Mode") {
+                        Task { await presenter.backToAgencyMode() }
+                    }
+                }
+            } header: {
+                Label("Map View Mode", systemImage: "eye")
+            }
+
+            Section {
                 Toggle("Track Now", isOn: $presenter.isTrackingCurrentTime)
                 if !presenter.isTrackingCurrentTime {
                     DatePicker("Date", selection: $presenter.timestamp, displayedComponents: [.date])

@@ -1,7 +1,23 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@: (%f, %f)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: (%2$f, %3$f)"
+          }
+        }
+      }
+    },
     "300" : {
+
+    },
+    "Agency" : {
+
+    },
+    "Back to Agency Mode" : {
 
     },
     "Buffer" : {
@@ -29,6 +45,9 @@
     "GTFS Realtime" : {
 
     },
+    "Map View Mode" : {
+
+    },
     "Seconds" : {
 
     },
@@ -49,6 +68,12 @@
 
     },
     "Track Now" : {
+
+    },
+    "Vehicle" : {
+
+    },
+    "Watch this Vehicle" : {
 
     }
   },

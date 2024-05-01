@@ -5,7 +5,7 @@
 //  Created by Kanta Oikawa on 2024/04/24.
 //
 
-import GTFSViewerMap
+import GTFSRealtimeViewer
 import SwiftUI
 
 public struct GTFSViewerApp: App {

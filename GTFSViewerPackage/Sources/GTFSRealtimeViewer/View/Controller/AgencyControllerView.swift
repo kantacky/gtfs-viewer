@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct AgencyControllerView: View {
-    @Bindable private var presenter: AgencyPresenter
+    @Bindable private var presenter: AgencyControllerPresenter
 
-    init(presenter: AgencyPresenter) {
+    init(presenter: AgencyControllerPresenter) {
         self.presenter = presenter
     }
 

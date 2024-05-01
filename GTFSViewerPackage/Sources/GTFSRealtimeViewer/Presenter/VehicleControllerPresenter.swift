@@ -1,5 +1,5 @@
 //
-//  VehiclePresenter.swift
+//  VehicleControllerPresenter.swift
 //
 //
 //  Created by Kanta Oikawa on 2024/05/01.
@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class VehiclePresenter {
+final class VehicleControllerPresenter {
     let agencyID: UUID
     let vehicleID: String
     var timestampFrom: Date = .now - TimeInterval(60 * 60)

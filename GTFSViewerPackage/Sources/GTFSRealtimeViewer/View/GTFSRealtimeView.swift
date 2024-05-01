@@ -23,10 +23,11 @@ public struct GTFSRealtimeView: View {
         .task {
             presenter.isLoading = true
             await presenter.changeMapViewModeToAgency()
+            presenter.mapCameraPosition = .region(.init(presenter.vehicleCoordinates))
             await presenter.startFetchingVehiclePositions()
         }
         .alert(
-            String(localized: "Something went wrong.", bundle: .module),
+            "Something went wrong.",
             isPresented: $presenter.isAlertShowing,
             presenting: presenter.alertString,
             actions: { _ in },

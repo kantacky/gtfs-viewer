@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct VehicleControllerView: View {
-    @Bindable private var presenter: VehiclePresenter
+    @Bindable private var presenter: VehicleControllerPresenter
 
-    init(presenter: VehiclePresenter) {
+    init(presenter: VehicleControllerPresenter) {
         self.presenter = presenter
     }
 

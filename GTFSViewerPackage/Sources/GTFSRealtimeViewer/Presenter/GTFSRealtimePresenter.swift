@@ -10,21 +10,22 @@ import Dependencies
 import Foundation
 import GTFSViewerEntity
 import GTFSViewerUtility
+import _MapKit_SwiftUI
 import Observation
 
 private let agencyID: UUID = UUID(uuidString: "24af33ea-704d-4baf-a906-70042ae61bc5")!
 
 @Observable
 class GTFSRealtimePresenter {
+    var mapCameraPosition: MapCameraPosition = .region(.init([]))
     var vehiclePositions: [VehiclePosition] = []
+    var vehicleCoordinates: [CLLocationCoordinate2D] { vehiclePositions.map(\.vehiclePosition) }
     var selectedVehicle: VehiclePosition?
-    var mapViewMode: MapViewMode = .agency(presenter: AgencyPresenter(agencyID: agencyID, fetch: {}))
+    var mapViewMode: Mode = .agency(presenter: AgencyControllerPresenter(agencyID: agencyID, fetch: {}))
     var isLoading: Bool = false
     var alertString: String?
     var isAlertShowing: Bool {
-        get {
-            alertString != nil
-        }
+        get { alertString != nil }
         set {
             if !newValue {
                 alertString = nil
@@ -33,6 +34,8 @@ class GTFSRealtimePresenter {
     }
 
     @ObservationIgnored @Dependency(APIClient.self) private var apiClient: APIClient
+
+    init() {}
 
     func fetchVehiclePositions() async {
         defer { isLoading = false }
@@ -54,7 +57,7 @@ class GTFSRealtimePresenter {
                 )
             }
         } catch {
-            alertString = String(localized: "Failed to fetch vehicle positions.", bundle: .module) + "\n" + error.localizedDescription
+            alertString = "Failed to fetch vehicle positions." + "\n" + error.localizedDescription
         }
     }
 
@@ -65,7 +68,7 @@ class GTFSRealtimePresenter {
         }
     }
 
-    private func changeMapViewMode(to mode: MapViewMode) async {
+    private func changeMapViewMode(to mode: Mode) async {
         selectedVehicle = nil
         mapViewMode = mode
         await fetchVehiclePositions()
@@ -74,7 +77,7 @@ class GTFSRealtimePresenter {
     func changeMapViewModeToAgency() async {
         await changeMapViewMode(
             to: .agency(
-                presenter: AgencyPresenter(
+                presenter: AgencyControllerPresenter(
                     agencyID: agencyID,
                     fetch: fetchVehiclePositions
                 )
@@ -85,7 +88,7 @@ class GTFSRealtimePresenter {
     func changeMapViewModeToVehicle(vehicleID: String) async {
         await changeMapViewMode(
             to: .vehicle(
-                presenter: VehiclePresenter(
+                presenter: VehicleControllerPresenter(
                     agencyID: agencyID,
                     vehicleID: vehicleID,
                     back: changeMapViewModeToAgency,

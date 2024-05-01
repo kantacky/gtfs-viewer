@@ -1,5 +1,5 @@
 //
-//  AgencyPresenter.swift
+//  AgencyControllerPresenter.swift
 //
 //
 //  Created by Kanta Oikawa on 2024/05/01.
@@ -10,7 +10,7 @@ import GTFSViewerUtility
 import Observation
 
 @Observable
-final class AgencyPresenter {
+final class AgencyControllerPresenter {
     let agencyID: UUID
     var timestamp: Date = .now
     var bufferSeconds: Int = 300

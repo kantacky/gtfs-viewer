@@ -287,7 +287,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GTFSViewer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AdHoc;
+				INFOPLIST_KEY_CFBundleDisplayName = "GTFS Viewer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -323,7 +323,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GTFSViewer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = AdHoc;
+				INFOPLIST_KEY_CFBundleDisplayName = "GTFS Viewer";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -8,6 +8,6 @@
 import Foundation
 
 enum MapViewMode {
-    case agency(agencyID: UUID)
-    case vehicle(agencyID: UUID, vehicleID: String)
+    case agency(presenter: AgencyPresenter)
+    case vehicle(presenter: VehiclePresenter)
 }

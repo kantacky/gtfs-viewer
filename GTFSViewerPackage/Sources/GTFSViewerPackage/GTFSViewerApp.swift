@@ -5,6 +5,7 @@
 //  Created by Kanta Oikawa on 2024/04/24.
 //
 
+import GTFSViewerMap
 import SwiftUI
 
 public struct GTFSViewerApp: App {
@@ -12,7 +13,7 @@ public struct GTFSViewerApp: App {
 
     public var body: some Scene {
         WindowGroup {
-            GTFSRealtimeView(presenter: GTFSRealtimePresenter())
+            GTFSRealtimeView()
         }
     }
 }

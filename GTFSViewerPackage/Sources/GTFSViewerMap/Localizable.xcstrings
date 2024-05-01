@@ -1,15 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@: (%f, %f)" : {
+    "(%f, %f)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%1$@: (%2$f, %3$f)"
+            "value" : "(%1$f, %2$f)"
           }
         }
       }
+    },
+    "%@" : {
+
     },
     "300" : {
 
@@ -23,10 +26,16 @@
     "Buffer" : {
 
     },
+    "Current Stop Sequence: %lld" : {
+
+    },
     "Date" : {
 
     },
     "Datetime" : {
+
+    },
+    "Direction ID: %lld" : {
 
     },
     "Failed to fetch vehicle positions." : {
@@ -39,6 +48,9 @@
         }
       }
     },
+    "From" : {
+
+    },
     "From: %@" : {
 
     },
@@ -46,6 +58,12 @@
 
     },
     "Map View Mode" : {
+
+    },
+    "Route ID: %@" : {
+
+    },
+    "Schedule Relationship: %@" : {
 
     },
     "Seconds" : {
@@ -61,13 +79,25 @@
         }
       }
     },
+    "Start: %@" : {
+
+    },
+    "Stop ID: %@" : {
+
+    },
     "Time" : {
+
+    },
+    "To" : {
 
     },
     "To: %@" : {
 
     },
     "Track Now" : {
+
+    },
+    "Trip ID: %@" : {
 
     },
     "Vehicle" : {

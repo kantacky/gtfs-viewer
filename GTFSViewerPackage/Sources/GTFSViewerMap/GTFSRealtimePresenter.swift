@@ -17,11 +17,8 @@ private let agencyID: UUID = UUID(uuidString: "24af33ea-704d-4baf-a906-70042ae61
 @Observable
 class GTFSRealtimePresenter {
     var vehiclePositions: [VehiclePosition] = []
-    var isTrackingCurrentTime: Bool = true
-    var timestamp: Date = .now
-    var bufferSeconds: Int = 300
     var selectedVehicle: VehiclePosition?
-    var mapViewMode: MapViewMode = .agency(agencyID: agencyID)
+    var mapViewMode: MapViewMode = .agency(presenter: AgencyPresenter(agencyID: agencyID, fetch: {}))
     var isLoading: Bool = false
     var alertString: String?
     var isAlertShowing: Bool {
@@ -37,31 +34,23 @@ class GTFSRealtimePresenter {
 
     @ObservationIgnored @Dependency(APIClient.self) private var apiClient: APIClient
 
-    var rangeStartDateString: String {
-        DateFormatter.iso8601.string(from: timestamp - TimeInterval(bufferSeconds))
-    }
-    var rangeEndDateString: String {
-        DateFormatter.iso8601.string(from: timestamp)
-    }
-
     func fetchVehiclePositions() async {
-        isLoading = true
         defer { isLoading = false }
         do {
             switch mapViewMode {
-            case let .agency(agencyID):
+            case let .agency(presenter):
                 vehiclePositions = try await apiClient.listVehiclesPositions(
-                    agencyID: agencyID,
-                    timestamp: timestamp,
-                    bufferSeconds: bufferSeconds
+                    agencyID: presenter.agencyID,
+                    timestamp: presenter.timestamp,
+                    bufferSeconds: presenter.bufferSeconds
                 )
 
-            case let .vehicle(agencyID, vehicleID):
+            case let .vehicle(presenter):
                 vehiclePositions = try await apiClient.listVehiclePositions(
-                    agencyID: agencyID,
-                    vehicleID: vehicleID,
-                    timestampFrom: timestamp - TimeInterval(bufferSeconds),
-                    timestampTo: timestamp
+                    agencyID: presenter.agencyID,
+                    vehicleID: presenter.vehicleID,
+                    timestampFrom: presenter.timestampFrom,
+                    timestampTo: presenter.timestampTo
                 )
             }
         } catch {
@@ -70,23 +59,39 @@ class GTFSRealtimePresenter {
     }
 
     func startFetchingVehiclePositions() async {
-        while(true) {
-            if isTrackingCurrentTime {
-                timestamp = .now
-                await fetchVehiclePositions()
-            }
+        while true {
             try? await Task.sleep(nanoseconds: 10_000_000_000)
+            await fetchVehiclePositions()
         }
     }
 
-    func watchVehiclePosition(_ vehiclePosition: VehiclePosition) async {
+    private func changeMapViewMode(to mode: MapViewMode) async {
         selectedVehicle = nil
-        mapViewMode = .vehicle(agencyID: agencyID, vehicleID: vehiclePosition.vehicleID)
+        mapViewMode = mode
         await fetchVehiclePositions()
     }
 
-    func backToAgencyMode() async {
-        mapViewMode = .agency(agencyID: agencyID)
-        await fetchVehiclePositions()
+    func changeMapViewModeToAgency() async {
+        await changeMapViewMode(
+            to: .agency(
+                presenter: AgencyPresenter(
+                    agencyID: agencyID,
+                    fetch: fetchVehiclePositions
+                )
+            )
+        )
+    }
+
+    func changeMapViewModeToVehicle(vehicleID: String) async {
+        await changeMapViewMode(
+            to: .vehicle(
+                presenter: VehiclePresenter(
+                    agencyID: agencyID,
+                    vehicleID: vehicleID,
+                    back: changeMapViewModeToAgency,
+                    fetch: fetchVehiclePositions
+                )
+            )
+        )
     }
 }

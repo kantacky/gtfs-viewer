@@ -5,14 +5,15 @@
 //  Created by Kanta Oikawa on 2024/04/25.
 //
 
+import GTFSViewerUtility
 import MapKit
 import SwiftUI
 
 struct MapView: View {
-    @Binding private var presenter: GTFSRealtimePresenter
+    @Bindable private var presenter: GTFSRealtimePresenter
 
-    init(presenter: Binding<GTFSRealtimePresenter>) {
-        self._presenter = presenter
+    init(presenter: GTFSRealtimePresenter) {
+        self.presenter = presenter
     }
 
     var body: some View {
@@ -46,9 +47,22 @@ struct MapView: View {
                 ) {
                     VStack(spacing: .zero) {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("\(vehicle.vehicleLabel): (\(Float(vehicle.vehiclePosition.latitude)), \(Float(vehicle.vehiclePosition.longitude)))")
+                            Text("\(vehicle.vehicleLabel)")
+                            Text(DateFormatter.iso8601.string(from: vehicle.timestamp))
+                            Text("(\(Float(vehicle.vehiclePosition.latitude)), \(Float(vehicle.vehiclePosition.longitude)))")
+                            Text("Trip ID: \(vehicle.tripID)")
+                            Text("Route ID: \(vehicle.routeID)")
+                            Text("Direction ID: \(vehicle.directionID)")
+                            Text("Start: \(DateFormatter.iso8601.string(from: vehicle.startDatetime))")
+                            Text("Schedule Relationship: \(vehicle.scheduleRelationship)")
+                            Text("Current Stop Sequence: \(vehicle.currentStopSequence)")
+                            Text("Stop ID: \(vehicle.stopID)")
                             Button {
-                                Task { await presenter.watchVehiclePosition(vehicle) }
+                                Task {
+                                    await presenter.changeMapViewModeToVehicle(
+                                        vehicleID: vehicle.vehicleID
+                                    )
+                                }
                             } label: {
                                 Label("Watch this Vehicle", systemImage: "eye")
                                     .bold()
@@ -94,12 +108,9 @@ struct MapView: View {
                     .shadow(radius: 4)
             }
         }
-        .task {
-            await presenter.startFetchingVehiclePositions()
-        }
     }
 }
 
 #Preview {
-    MapView(presenter: .constant(GTFSRealtimePresenter()))
+    MapView(presenter: GTFSRealtimePresenter())
 }

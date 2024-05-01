@@ -8,6 +8,7 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [
         .library(name: "GTFSViewerPackage", targets: ["GTFSViewerPackage"]),
+        .library(name: "GTFSViewerMap", targets: ["GTFSViewerMap"]),
     ],
     dependencies: [
         .package(url: "https://github.com/kantacky/apis-swift", .upToNextMajor(from: "0.1.0")),
@@ -25,11 +26,17 @@ let package = Package(
         ),
         .target(name: "GTFSViewerEntity"),
         .target(
-            name: "GTFSViewerPackage",
+            name: "GTFSViewerMap",
             dependencies: [
+                "APIClient",
                 "GTFSViewerEntity",
                 "GTFSViewerUtility",
-                "APIClient",
+            ]
+        ),
+        .target(
+            name: "GTFSViewerPackage",
+            dependencies: [
+                "GTFSViewerMap",
             ]
         ),
         .testTarget(

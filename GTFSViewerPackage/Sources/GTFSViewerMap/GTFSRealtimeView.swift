@@ -7,20 +7,23 @@
 
 import SwiftUI
 
-struct GTFSRealtimeView: View {
-    @State private var presenter: GTFSRealtimePresenter
+public struct GTFSRealtimeView: View {
+    @State private var presenter: GTFSRealtimePresenter = .init()
 
-    init(presenter: GTFSRealtimePresenter) {
-        self.presenter = presenter
-    }
+    public init() {}
 
-    var body: some View {
+    public var body: some View {
         NavigationSplitView {
-            ControllerView(presenter: $presenter)
+            ControllerView(presenter: presenter)
                 .navigationTitle("GTFS Realtime")
         } detail: {
-            MapView(presenter: $presenter)
+            MapView(presenter: presenter)
                 .toolbar(.hidden)
+        }
+        .task {
+            presenter.isLoading = true
+            await presenter.changeMapViewModeToAgency()
+            await presenter.startFetchingVehiclePositions()
         }
         .alert(
             String(localized: "Something went wrong.", bundle: .module),
@@ -34,6 +37,6 @@ struct GTFSRealtimeView: View {
 
 #if DEBUG
 #Preview {
-    GTFSRealtimeView(presenter: GTFSRealtimePresenter())
+    GTFSRealtimeView()
 }
 #endif

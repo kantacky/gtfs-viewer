@@ -12,6 +12,7 @@ public struct VehiclePosition: Identifiable {
     public let tripID: String
     public let routeID: String
     public let directionID: Int
+    public let startDatetime: Date
     public let scheduleRelationship: String
     public let vehicleID: String
     public let vehicleLabel: String
@@ -25,6 +26,7 @@ public struct VehiclePosition: Identifiable {
         tripID: String,
         routeID: String,
         directionID: Int,
+        startDatetime: Date,
         scheduleRelationship: String,
         vehicleID: String,
         vehicleLabel: String,
@@ -37,6 +39,7 @@ public struct VehiclePosition: Identifiable {
         self.tripID = tripID
         self.routeID = routeID
         self.directionID = directionID
+        self.startDatetime = startDatetime
         self.scheduleRelationship = scheduleRelationship
         self.vehicleID = vehicleID
         self.vehicleLabel = vehicleLabel
@@ -54,6 +57,7 @@ public extension VehiclePosition {
         tripID: "T000",
         routeID: "R000",
         directionID: 0,
+        startDatetime: .now,
         scheduleRelationship: "SCHEDULED",
         vehicleID: "V000",
         vehicleLabel: "V000",
@@ -67,6 +71,7 @@ public extension VehiclePosition {
         tripID: "T001",
         routeID: "R001",
         directionID: 0,
+        startDatetime: .now,
         scheduleRelationship: "SCHEDULED",
         vehicleID: "V001",
         vehicleLabel: "V001",
@@ -80,6 +85,7 @@ public extension VehiclePosition {
         tripID: "T002",
         routeID: "R002",
         directionID: 0,
+        startDatetime: .now,
         scheduleRelationship: "SCHEDULED",
         vehicleID: "V002",
         vehicleLabel: "V002",
@@ -93,6 +99,7 @@ public extension VehiclePosition {
         tripID: "T003",
         routeID: "R003",
         directionID: 0,
+        startDatetime: .now,
         scheduleRelationship: "SCHEDULED",
         vehicleID: "V003",
         vehicleLabel: "V003",
@@ -106,6 +113,7 @@ public extension VehiclePosition {
         tripID: "T004",
         routeID: "R004",
         directionID: 0,
+        startDatetime: .now,
         scheduleRelationship: "SCHEDULED",
         vehicleID: "V004",
         vehicleLabel: "V004",

@@ -44,7 +44,7 @@ class GTFSRealtimePresenter {
         isLoading = true
         defer { isLoading = false }
         do {
-            vehiclePositions = try await apiClient.listVehiclePositions(
+            vehiclePositions = try await apiClient.listVehiclesPositions(
                 agencyID: UUID(uuidString: "24af33ea-704d-4baf-a906-70042ae61bc5")!,
                 timestamp: timestamp,
                 bufferSeconds: bufferSeconds

@@ -1,13 +1,13 @@
 {
-  "originHash" : "57828cf624446abfb686ce5258a860e3b49883bd1261642eb29c7c4e0501c1c8",
+  "originHash" : "1fb4fd0cf03f1666b509124d97e5840996e5aa6cfec9cd16b75cbb7e06bac562",
   "pins" : [
     {
       "identity" : "apis-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kantacky/apis-swift",
       "state" : {
-        "revision" : "d363f8fe76e4c87b3ed925a524e8989ae4cfa6b6",
-        "version" : "0.1.0"
+        "revision" : "d79f5774bec9935cab28a67cbc77e8895f2af33b",
+        "version" : "0.2.0"
       }
     },
     {

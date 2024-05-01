@@ -18,6 +18,7 @@
 		F15556A92BD940F600CBEC0F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F15556AD2BD940F700CBEC0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F15556B02BD940F700CBEC0F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F1F907072BDB2C5D00131E82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +53,7 @@
 		F15556A82BD940F600CBEC0F /* GTFSViewer */ = {
 			isa = PBXGroup;
 			children = (
+				F1F907072BDB2C5D00131E82 /* Info.plist */,
 				F15556A92BD940F600CBEC0F /* main.swift */,
 				F15556AD2BD940F700CBEC0F /* Assets.xcassets */,
 				F15556AF2BD940F700CBEC0F /* Preview Content */,
@@ -284,6 +286,7 @@
 				DEVELOPMENT_TEAM = 4YP7SQBLYV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GTFSViewer/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AdHoc;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -319,7 +322,8 @@
 				DEVELOPMENT_TEAM = 4YP7SQBLYV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "GTFS Viewer";
+				INFOPLIST_FILE = GTFSViewer/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AdHoc;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

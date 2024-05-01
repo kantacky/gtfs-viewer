@@ -38,7 +38,6 @@ struct MapView: View {
 
             if let vehicle = presenter.selectedVehicle {
                 Annotation(
-                    vehicle.vehicleLabel,
                     coordinate: .init(
                         latitude: vehicle.vehiclePosition.latitude,
                         longitude: vehicle.vehiclePosition.longitude
@@ -95,7 +94,10 @@ struct MapView: View {
                         .frame(width: 24, height: 24)
                     }
                     .padding()
-                }
+                    .onTapGesture {
+                        presenter.selectedVehicle = nil
+                    }
+                } label: {}
             }
         }
         .overlay {

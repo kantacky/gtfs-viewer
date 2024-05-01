@@ -13,12 +13,12 @@ public struct GTFSRealtimeView: View {
     public init() {}
 
     public var body: some View {
-        NavigationSplitView {
+        HStack(spacing: .zero) {
             ControllerView(presenter: presenter)
-                .navigationTitle("GTFS Realtime")
-        } detail: {
+                .containerRelativeFrame(.horizontal, count: 4, span: 1, spacing: 0)
+
             MapView(presenter: presenter)
-                .toolbar(.hidden)
+                .containerRelativeFrame(.horizontal, count: 4, span: 3, spacing: 0)
         }
         .task {
             presenter.isLoading = true

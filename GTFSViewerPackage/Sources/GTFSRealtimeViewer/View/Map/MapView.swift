@@ -38,8 +38,7 @@ struct MapView: View {
                     } label: {
                         Circle()
                             .fill(Color.red)
-                            .frame(width: 16, height: 16)
-                            .padding()
+                            .frame(width: 12, height: 12)
                     }
                 }
             }

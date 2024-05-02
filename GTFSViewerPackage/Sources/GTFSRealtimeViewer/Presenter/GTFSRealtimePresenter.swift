@@ -56,6 +56,11 @@ class GTFSRealtimePresenter {
                     timestampTo: presenter.timestampTo
                 )
             }
+
+            if let selectedVehicle {
+                let vehicle = vehiclePositions.first(where: { $0.vehicleID == selectedVehicle.vehicleID })
+                selectVehicle(vehiclePosition: vehicle)
+            }
         } catch {
             alertString = "Failed to fetch vehicle positions." + "\n" + error.localizedDescription
         }
@@ -64,12 +69,21 @@ class GTFSRealtimePresenter {
     func startFetchingVehiclePositions() async {
         while true {
             try? await Task.sleep(nanoseconds: 10_000_000_000)
-            await fetchVehiclePositions()
+
+            switch mapViewMode {
+            case let .agency(presenter):
+                if presenter.isTrackingNow {
+                    presenter.timestamp = .now
+                    await fetchVehiclePositions()
+                }
+
+            default:
+                break
+            }
         }
     }
 
     private func changeMapViewMode(to mode: Mode) async {
-        selectedVehicle = nil
         mapViewMode = mode
         await fetchVehiclePositions()
     }
@@ -94,6 +108,19 @@ class GTFSRealtimePresenter {
                     back: changeMapViewModeToAgency,
                     fetch: fetchVehiclePositions
                 )
+            )
+        )
+    }
+
+    func selectVehicle(vehiclePosition: VehiclePosition?) {
+        self.selectedVehicle = vehiclePosition
+        guard let vehiclePosition else {
+            return
+        }
+        mapCameraPosition = .camera(
+            MapCamera(
+                centerCoordinate: vehiclePosition.vehiclePosition,
+                distance: 10000
             )
         )
     }

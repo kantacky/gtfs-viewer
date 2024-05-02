@@ -28,13 +28,7 @@ struct MapView: View {
                     anchor: .center
                 ) {
                     Button {
-                        presenter.selectedVehicle = vehicle
-                        presenter.mapCameraPosition = .camera(
-                            MapCamera(
-                                centerCoordinate: vehicle.vehiclePosition,
-                                distance: 10000
-                            )
-                        )
+                        presenter.selectVehicle(vehiclePosition: vehicle)
                     } label: {
                         Circle()
                             .fill(Color.red)
@@ -59,6 +53,8 @@ struct MapView: View {
                                     vehicleID: vehicle.vehicleID
                                 )
                             }
+                        } closeAction: {
+                            presenter.selectedVehicle = nil
                         }
 
                         Path { path in
@@ -69,6 +65,7 @@ struct MapView: View {
                             path.closeSubpath()
                         }
                         .fill(.background)
+                        .shadow(radius: 2, x: 0, y: 4)
                         .frame(width: 24, height: 24)
                     }
                     .padding()

@@ -13,12 +13,42 @@ public struct GTFSRealtimeView: View {
     public init() {}
 
     public var body: some View {
-        HStack(spacing: .zero) {
+        NavigationSplitView {
             ControllerView(presenter: presenter)
-                .containerRelativeFrame(.horizontal, count: 4, span: 1, spacing: 0)
-
+                .navigationTitle("GTFS Realtime")
+        } detail: {
             MapView(presenter: presenter)
-                .containerRelativeFrame(.horizontal, count: 4, span: 3, spacing: 0)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Group {
+                            switch presenter.mapViewMode {
+                            case let .agency(presenter):
+                                Text("Agency ID: \(presenter.agencyID)")
+
+                            case let .vehicle(presenter):
+                                Text("Agency ID: \(presenter.agencyID)")
+                            }
+                        }
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    }
+
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        VStack(alignment: .trailing) {
+                            switch presenter.mapViewMode {
+                            case let .agency(presenter):
+                                Text("From: \(presenter.rangeStartDateString)")
+                                Text("To: \(presenter.rangeEndDateString)")
+
+                            case let .vehicle(presenter):
+                                Text("From: \(DateFormatter.iso8601.string(from: presenter.timestampFrom))")
+                                Text("To: \(DateFormatter.iso8601.string(from: presenter.timestampTo))")
+                            }
+                        }
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    }
+                }
         }
         .task {
             presenter.isLoading = true

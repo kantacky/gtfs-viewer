@@ -17,15 +17,20 @@ struct VehicleControllerView: View {
     var body: some View {
         Form {
             Section {
-                LabeledContent("Agency", value: presenter.agencyID.uuidString)
+                Text(presenter.agencyID.uuidString)
                     .lineLimit(1)
-                LabeledContent("Vehicle", value: presenter.vehicleID)
+            } header: {
+                Label("Agency", systemImage: "building.2")
+            }
+
+            Section {
+                Text(presenter.vehicleID)
                     .lineLimit(1)
                 Button("Back to Agency Mode") {
                     Task { await presenter.back() }
                 }
             } header: {
-                Label("Map View Mode", systemImage: "eye")
+                Label("Vehicle", systemImage: "bus")
             }
 
             Section {

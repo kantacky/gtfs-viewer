@@ -15,17 +15,12 @@ struct ControllerView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            Group {
-                switch presenter.mapViewMode {
-                case let .agency(presenter):
-                    AgencyControllerView(presenter: presenter)
+        switch presenter.mapViewMode {
+        case let .agency(presenter):
+            AgencyControllerView(presenter: presenter)
 
-                case let .vehicle(presenter):
-                    VehicleControllerView(presenter: presenter)
-                }
-            }
-            .navigationTitle("GTFS Realtime")
+        case let .vehicle(presenter):
+            VehicleControllerView(presenter: presenter)
         }
     }
 }

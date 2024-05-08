@@ -17,10 +17,10 @@ struct AgencyControllerView: View {
     var body: some View {
         Form {
             Section {
-                LabeledContent("Agency", value: presenter.agencyID.uuidString)
+                Text(presenter.agencyID.uuidString)
                     .lineLimit(1)
             } header: {
-                Label("Map View Mode", systemImage: "eye")
+                Label("Agency", systemImage: "building.2")
             }
 
             Section {
@@ -39,11 +39,6 @@ struct AgencyControllerView: View {
                 }
             } header: {
                 Label("Datetime", systemImage: "clock")
-            } footer: {
-                VStack(alignment: .leading) {
-                    Text("From: \(presenter.rangeStartDateString)")
-                    Text("To: \(presenter.rangeEndDateString)")
-                }
             }
         }
         .onChange(of: presenter.timestamp) { _, _ in
